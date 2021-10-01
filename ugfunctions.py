@@ -388,7 +388,7 @@ def mysbtclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean
 				specmode='mfs',	nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1, sidelobethreshold = 2.0,
 #			minpsffraction=0.05,
 #			maxpsffraction=0.8,
-				smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.1,
+				smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
 				deconvolver='mtmfs', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
 				restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
 				interactive=False)
@@ -398,7 +398,7 @@ def mysbtclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean
 				specmode='mfs',	nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1,sidelobethreshold = 2.0,
 #			minpsffraction=0.05,
 #			maxpsffraction=0.8,
-				smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.1,
+				smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
 				deconvolver='multiscale', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
 				restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
 				interactive=False)
@@ -753,22 +753,6 @@ def mysubbandselfcal(myfile,subbandchan,myref,nloops,nploops,myvalinit,mycellsiz
 						myapplycal(myfile[i],mygt[i])
 						myoutfile= mysplit(myfile[i],i)
 						myfile.append(myoutfile)
-######################old code###################################                                        
-#					if i>0 and i<nscal+1:
-#						for xgt in range(0,len(msspw)):	
-#							myctables = mysbgaincal_ap(myfile[i],xgt,myref,mygt[i-1],i,mypap,mysolint1,'',mygainspw2)
-#							mysbapplycal(myfile[i],myctables,xgt)
-#							mygt.append(myctables) # full list of gaintables							
-#					else:				
-#						for xgt in range(0,len(msspw)):	
-#							myctables = mysbgaincal_ap(myfile[i],xgt,myref,mygt,i,mypap,mysolint1,'',mygainspw2)		
-#							mysbapplycal(myfile[i],myctables,xgt)	
-#							mygt.append(myctables) # full list of gaintables
-##################################################################
-#					if i < nscal+1:
-#						myoutfile= mysbsplit(myfile[i],i)
-#						myfile.append(myoutfile)
-
 				else:
 					mypap = 'ap'
 #					print("Using "+ myfile[i]+" for imaging.")
@@ -794,16 +778,6 @@ def mysubbandselfcal(myfile,subbandchan,myref,nloops,nploops,myvalinit,mycellsiz
 							myapplycal(myfile[i],mygt[i])
 							myoutfile= mysplit(myfile[i],i)
 							myfile.append(myoutfile)
-###################old code##########################                                        
-#					if i!= nscal:
-#						for xgt in range(0,len(msspw)):	
-#							myctables = mysbgaincal_ap(myfile[i],xgt,myref,mygt[i-1],i,mypap,mysolint1,'',mygainspw2)		
-#							mysbapplycal(myfile[i],myctables,xgt)	
-#						if i < nscal+1:
-#							myoutfile= mysbsplit(myfile[i],i)
-#							myfile.append(myoutfile)
-#####################################################
-#				print("Visibilities from the previous selfcal will be deleted.")
 				logging.info("Visibilities from the previous selfcal will be deleted.")
 				if i < nscal:
 					fprefix = getfields(myfile[i])[0]
