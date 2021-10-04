@@ -1,13 +1,13 @@
-# CAPTURE
+# CAPTURE-CASA6
 CAPTURE stands for CAsa Pipeline-cum-Toolkit for Upgraded GMRT data REduction. It is a calibration and imaging pipeline for interferometric data obtained using the Upgraded GMRT. It uses Common Astronomy Software Applications (CASA, NRAO, McMullin et al 2007) and python.
 
 The CAPTURE pipeline is described in the paper Kale and Ishwara-Chandra, 2021, ExA, 51, 95.
 
-CAPTURE: This is a CASA-6 compatible version of uGMRT-pipeline. CAPTURE is designed to work for bands-3, 4 and 5 of the uGMRT. It can also be used for legacy GMRT data. 
+CAPTURE-CASA6: This is a CASA-6 compatible version of uGMRT-pipeline. CAPTURE is designed to work for bands-3, 4 and 5 of the uGMRT. It can also be used for legacy GMRT data. 
 
 The pipeline files need to be located in the same directory as the data. All the new files will be created in the same directory.
 
-To use CAPTURE:
+To use CAPTURE-CASA6:
 
 Open config_capture.ini in a text editor. Change and save the settings as per your requirements.
 
