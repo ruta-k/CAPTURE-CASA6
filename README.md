@@ -1,7 +1,7 @@
 # CAPTURE-CASA6
 
 Please see the documentation here:
-file:///home/ruta/my-casa-scripts/my-pipeline/pipeline-group-notes/pipeline-webpage/shilkumar-temp/public_html/capture-cas6-doc.pdf
+http://www.ncra.tifr.res.in/~ruta/IDAP/capture-cas6-doc.pdf
 
 CAPTURE stands for CAsa Pipeline-cum-Toolkit for Upgraded GMRT data REduction. It is a calibration and imaging pipeline for interferometric data obtained using the Upgraded GMRT. It uses Common Astronomy Software Applications (CASA, NRAO, McMullin et al 2007) and python.
 
