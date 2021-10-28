@@ -264,10 +264,10 @@ def getgainspw(msfilename):
                         gainspw ='0:1200~2200'
                         gainspw2 ='0:1200~2200'
                 elif mynchan == 4096:
-                        mygoodchans = '0:1400~1600,0:3000~3200'
-                        flagspw = '0:1000~2300,0:2700~3600'
-                        gainspw ='0:1150~2250,0:2800~3500'
-                        gainspw2 ='0:1150~2250,0:2800~3500'                        
+                        mygoodchans = '0:1400~1600;3000~3200'
+                        flagspw = '0:1000~2300;2700~3600'
+                        gainspw ='0:1150~2250;2800~3500'
+                        gainspw2 ='0:1150~2250;2800~3500'                        
         else:
 # Now get the channel range.        
                 if mynchan == 1024:
@@ -660,12 +660,16 @@ def getspws(myfile):
 
 
 def makesubbands(myfile,subbandchan):
-        os.system('rm -r msimg*')
+#        if os.path.isdir(str(msimg*)) == True:
+        try:
+                os.system('rm -rf msimg*')
+        except (RuntimeError, TypeError, NameError):
+                pass
         splitspw=[]
         msspw=[]
         gainsplitspw=[]
         xchan=subbandchan
-        myx=getnchan(myfile[0])
+        myx=getnchan(myfile)
         if myx>xchan:
                 mynchani=myx
                 xs=0
@@ -685,18 +689,19 @@ def makesubbands(myfile,subbandchan):
                         myfilei="msimg"+str(xs)+".ms"
                         xs=xs+1
                         splitspw.append(myfilei)
-                print(gainsplitspw)
-                print(msspw)
-                print(splitspw)
+                logging.info(gainsplitspw)
+                logging.info(msspw)
+                logging.info(splitspw)
                 for numspw in range(0,len(msspw)):
                         default(mstransform)
-                        mstransform(vis=myfile[0],outputvis=splitspw[numspw],spw=msspw[numspw],chanaverage=False,datacolumn='all',realmodelcol=True)
-                os.system("rm -r"+" old"+myfile[0])
-                os.system("rm -r"+" old"+myfile[0]+".flagversions")
-                os.system("mv "+myfile[0]+".flagversions old"+myfile[0]+".flagversions")
-                os.system("mv  "+myfile[0]+" old"+myfile[0])
-                default(concat)
-                concat(vis=splitspw,concatvis=myfile[0])
+                        mstransform(vis=myfile,outputvis=splitspw[numspw],spw=msspw[numspw],chanaverage=False,datacolumn='all',realmodelcol=True)
+                if os.path.isdir(" old"+myfile) == True:
+                        os.system("rm -r"+" old"+myfile)
+                if os.path.isdir(" old"+myfilei+".flagversions") == True:
+                        os.system("rm -r"+" old"+myfile+".flagversions")
+                os.system("mv "+myfile+".flagversions old"+myfile+".flagversions")
+                os.system("mv  "+myfile+" old"+myfile)
+                concat(vis=splitspw,concatvis=myfile)
         mygainspw2=gainsplitspw
         return mygainspw2, msspw
 
