@@ -658,14 +658,14 @@ def getspws(myfile):
         nspw = len(nspws['freq_group_name'][0])
         return nspw
 
+
 def makesubbands(myfile,subbandchan):
         os.system('rm -r msimg*')
         splitspw=[]
         msspw=[]
         gainsplitspw=[]
         xchan=subbandchan
-        #myx=getnchan(myfile[0])
-        myx=getnchan(myfile)
+        myx=getnchan(myfile[0])
         if myx>xchan:
                 mynchani=myx
                 xs=0
@@ -689,14 +689,17 @@ def makesubbands(myfile,subbandchan):
                 print(msspw)
                 print(splitspw)
                 for numspw in range(0,len(msspw)):
-                                default(mstransform)
-                                mstransform(vis=myfile,outputvis=splitspw[numspw],spw=msspw[numspw],chanaverage=False,datacolumn='all',realmodelcol=True)
+                        default(mstransform)
+                        mstransform(vis=myfile[0],outputvis=splitspw[numspw],spw=msspw[numspw],chanaverage=False,datacolumn='all',realmodelcol=True)
                 os.system("rm -r"+" old"+myfile[0])
                 os.system("rm -r"+" old"+myfile[0]+".flagversions")
                 os.system("mv "+myfile[0]+".flagversions old"+myfile[0]+".flagversions")
                 os.system("mv  "+myfile[0]+" old"+myfile[0])
+                default(concat)
+                concat(vis=splitspw,concatvis=myfile[0])
         mygainspw2=gainsplitspw
         return mygainspw2, msspw
+
 
 def mysubbandselfcal(myfile,subbandchan,myref,nloops,nploops,myvalinit,mycellsize,myimagesize,mynterms2,mywproj1,mysolint1,myclipresid,myflagspw,mygainspw2,mymakedirty,niterstart,msspw,clean_robust):
         myref = myref
