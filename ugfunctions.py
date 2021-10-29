@@ -266,8 +266,8 @@ def getgainspw(msfilename):
                 elif mynchan == 4096:
                         mygoodchans = '0:1400~1600;3000~3200'
                         flagspw = '0:1000~2300;2700~3600'
-                        gainspw ='0:1150~2250;2800~3500'
-                        gainspw2 ='0:1150~2250;2800~3500'                        
+                        gainspw ='0:1151~2250;2801~3500'
+                        gainspw2 ='0:1151~2250;2801~3500'                        
         else:
 # Now get the channel range.        
                 if mynchan == 1024:
