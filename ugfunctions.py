@@ -836,3 +836,113 @@ def flagsummary(myfile):
 
 
 #############End of functions##############################################################################
+###### MSJ
+def myrm_un(myfields) :
+	x=[]
+	for fld in myfields :
+		if "_" in fld :
+			fld = fld[:-2]
+			x.append(fld)
+		else :
+			x.append(fld)
+	myfields=x
+	return myfields
+
+def my_dig_plot(msfilename,myfields,myampcals,mypcals,mytargets,mycalsuffix,bptable,gntable):
+	print (msfilename,myfields,myampcals,mypcals,mycalsuffix,bptable,gntable)
+
+	plt_dir='diagnostic_plots'
+	if not os.path.exists(plt_dir):
+		os.makedirs(plt_dir)
+
+	msmd.open(msfilename)  
+	nf = msmd.nfields()
+	nchan = msmd.nchan(0)
+	msmd.done()
+
+	fld_list=[]
+	for i in range(nf):
+		if myfields[i] in myampcals :
+			fld_list.append(i)
+		elif myfields[i] in mypcals :
+			fld_list.append(i)
+	#print fld_list
+
+	plot_files=[]
+	# U V Plot
+
+	for fld in mytargets :
+		pfile=plt_dir+'/'+'uv_'+fld+'_'+mycalsuffix+'.png'
+		if os.path.exists('plotms.last'): os.remove('plotms.last')
+		plotms(vis=msfilename,field=fld,xaxis="u",yaxis="v",xdatacolumn="corrected",
+			ydatacolumn="corrected",spw="",scan="",averagedata=False,avgtime="",avgscan=False,
+			overwrite=True,showgui=False,avgbaseline=True,symbolsize=2, plotfile=pfile,clearplots=True)
+		plot_files.append(pfile)
+
+	# amp and uvdist Plot at different channels
+	# amp and phase Plot at different channels
+	step=int(nchan/8)
+	for j in range (0,nchan,step) :
+		if j >= int(nchan/10) and j <= int(nchan/1.1) :
+			n_spw='0:'+str(j)+'~'+str(j)
+			for i in range(len(fld_list)) :
+				fld=fld_list[i]
+				sname=myfields[fld]
+				pfile=plt_dir+'/'+sname+'_'+str(j)+"_"+mycalsuffix+'_amp_uvdist.png'
+				if sname in myampcals : pltrange=[0,0,5,35]
+				else : pltrange=[0,0,0,0]
+				#print msfilename,fld,n_spw,pltrange,pfile
+				if os.path.exists('plotms.last'): os.remove('plotms.last')
+				plotms(vis=msfilename,field=str(fld),xaxis="uvdist",yaxis="amp",xdatacolumn="corrected",
+					ydatacolumn="corrected",spw=n_spw,scan="",averagedata=False,avgtime="",avgscan=False,
+					plotrange=pltrange, overwrite=True,showgui=False,avgbaseline=True,symbolsize=2,
+					plotfile=pfile,clearplots=True)
+				plot_files.append(pfile)
+
+				pfile=plt_dir+'/'+sname+'_'+str(j)+"_"+mycalsuffix+'_amp_phase.png'
+				pltrange=[0,0,-180,180]
+				#print msfilename,fld,n_spw,pltrange,pfile
+				if os.path.exists('plotms.last'): os.remove('plotms.last')
+				plotms(vis=msfilename,field=str(fld),xaxis="amp",yaxis="phase",xdatacolumn="corrected",
+					ydatacolumn="corrected",spw=n_spw,scan="",averagedata=False,avgtime="",avgscan=False,
+					plotrange=pltrange, overwrite=True,showgui=False,avgbaseline=True,symbolsize=2,
+					plotfile=pfile,clearplots=True)
+				plot_files.append(pfile)
+
+	# bandpass and gaincal, amp and phase plots
+	bp_list=[]
+	for i in range(nf):
+		if myfields[i] in myampcals : bp_list.append(i)
+	#print bp_list
+
+	for i in range(len(bp_list)) :
+		fld=bp_list[i]
+		sname=myfields[fld]
+		pfile=plt_dir+'/'+sname+"_"+mycalsuffix+'_amp_bandpass.png'
+		if os.path.exists(pfile): os.remove(pfile)
+		if os.path.exists('plotbandpass.last'): os.remove('plotbandpass.last')
+		plotbandpass(caltable=bptable,field=str(fld),yaxis='amp',xaxis='chan',figfile=pfile,interactive=False)
+		plot_files.append(pfile)
+
+		pfile=plt_dir+'/'+sname+"_"+mycalsuffix+'_amp_gaincal.png'
+		if os.path.exists(pfile): os.remove(pfile)
+		if os.path.exists('plotms.last'): os.remove('plotms.last')
+		plotms(vis=gntable,field=str(fld),yaxis='amp',xaxis='time',plotfile=pfile,showgui=False)
+		plot_files.append(pfile)
+
+		pfile=plt_dir+'/'+sname+"_"+mycalsuffix+'_phase_bandpass.png'
+		if os.path.exists(pfile): os.remove(pfile)
+		if os.path.exists('plotbandpass.last'): os.remove('plotbandpass.last')
+		plotbandpass(caltable=bptable,field=str(fld),yaxis='phase',xaxis='chan',figfile=pfile,interactive=False)
+		plot_files.append(pfile)
+
+		pfile=plt_dir+'/'+sname+"_"+mycalsuffix+'_phase_gaincal.png'
+		if os.path.exists(pfile): os.remove(pfile)
+		if os.path.exists('plotms.last'): os.remove('plotms.last')
+		plotms(vis=gntable,field=str(fld),yaxis='phase',xaxis='time',plotfile=pfile,showgui=False)
+		plot_files.append(pfile)
+
+	print (plot_files)
+	return plot_files
+
+#############End of functions##############################################################################
