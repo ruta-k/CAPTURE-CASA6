@@ -889,7 +889,7 @@ def my_dig_plot(msfilename,myfields,myampcals,mypcals,mytargets,mycalsuffix,bpta
 				fld=fld_list[i]
 				sname=myfields[fld]
 				pfile=plt_dir+'/'+sname+'_'+str(j)+"_"+mycalsuffix+'_amp_uvdist.png'
-				if sname in myampcals : pltrange=[0,0,5,35]
+				if sname in myampcals : pltrange=[0,0,0,0]
 				else : pltrange=[0,0,0,0]
 				#print msfilename,fld,n_spw,pltrange,pfile
 				if os.path.exists('plotms.last'): os.remove('plotms.last')
