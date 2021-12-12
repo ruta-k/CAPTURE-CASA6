@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # FUNCTIONS
 ###############################################################
 # A library of function that are used in the pipeline
@@ -5,7 +6,7 @@
 import logging
 import sys
 import os
-from casatools import ms, msmetadata, casalog
+from casatools import ms, msmetadata
 from casaplotms import plotms
 from casatasks import (
     flagdata,
