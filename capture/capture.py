@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ###################################################################
 # CAPTURE: CAsa Pipeline-cum-Toolkit for Upgraded GMRT data REduction
 ###################################################################
@@ -6,10 +7,6 @@
 # and Ishwar Chandra.
 # Date: 8th Aug 2019
 # README : Please read the following instructions to run this pipeline on your data
-# Files and paths required
-# 0. This files from git should be placed and executed in the directory where your data files are located.
-# 1. If starting from lta file, please provide the paths to the listscan and gvfits executable binaries in "gvbinpath" as shown.
-# 2. Keep the vla-cals.list file in the same area.
 # Please email ruta@ncra.tifr.res.in if you run into any issue and cannot solve.
 #
 
@@ -18,8 +15,9 @@ import sys
 import logging
 import os
 import numpy as np
+import importlib.resources as pkg_resources
 from datetime import datetime
-import ugfunctions as ugf
+import capture.ugfunctions as ugf
 import configparser
 import argparse
 from casatasks import (
@@ -31,6 +29,19 @@ from casatasks import (
     bandpass,
     applycal,
 )
+
+
+def get_binaries():
+    resources = os.path.abspath(os.path.join(__file__, "..", "resources"))
+    gvbinpath = os.path.join(resources, "gvbin")
+    listscanpath = os.path.join(gvbinpath, "listscan")
+    return gvbinpath, listscanpath
+
+
+def get_vla_cals():
+    resources = os.path.abspath(os.path.join(__file__, "..", "resources"))
+    vla_cals = os.path.join(resources, "vla-cals.list")
+    return vla_cals
 
 
 def cli():
@@ -90,7 +101,7 @@ def cli():
         dosubbandselfcal=config.getboolean("basic", "dosubbandselfcal"),
         usetclean=config.getboolean("default", "usetclean"),
         ltafile=config.get("basic", "ltafile"),
-        gvbinpath=config.get("basic", "gvbinpath").split(","),
+        gvbinpath=get_binaries(),
         fits_file=config.get("basic", "fits_file"),
         msfilename=config.get("basic", "msfilename"),
         splitfilename=config.get("basic", "splitfilename"),
@@ -291,7 +302,7 @@ def main(
         # fix targets
         myfields = ugf.getfields(msfilename)
         stdcals = ["3C48", "3C147", "3C286", "0542+498", "1331+305", "0137+331"]
-        vlacals = np.loadtxt("./vla-cals.list", dtype="str")
+        vlacals = np.loadtxt(get_vla_cals(), dtype="str")
         myampcals = []
         mypcals = []
         mytargets = []
@@ -1267,7 +1278,7 @@ def main(
         # fix targets
         myfields = ugf.getfields(msfilename)
         stdcals = ["3C48", "3C147", "3C286", "0542+498", "1331+305", "0137+331"]
-        vlacals = np.loadtxt("./vla-cals.list", dtype="str")
+        vlacals = np.loadtxt(get_vla_cals(), dtype="str")
         myampcals = []
         mypcals = []
         mytargets = []
@@ -1452,3 +1463,7 @@ def main(
                     niter_start,
                     clean_robust,
                 )
+
+
+if __name__ == "__main__":
+    cli()
