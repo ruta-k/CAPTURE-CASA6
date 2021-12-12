@@ -13,8 +13,14 @@ The pipeline files need to be located in the same directory as the data. All the
 
 ## Installation
 
-Install CAPTURE and the required dependcies (namely, `casa`):
+Python 3.8 with pip is required for CASA. To install CAPTURE and the required dependcies (namely, `casa`) either:
 
+```
+git clone https://github.com/ruta-k/CAPTURE-CASA6.git
+cd CAPTURE-CASA6
+pip install -e .
+```
+Or:
 ```
 pip install git+https://github.com/ruta-k/CAPTURE-CASA6
 ```
