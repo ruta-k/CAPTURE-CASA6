@@ -16,7 +16,6 @@ import logging
 import os
 from typing import Tuple, List
 import numpy as np
-import importlib.resources as pkg_resources
 from datetime import datetime
 import capture.ugfunctions as ugf
 import configparser
@@ -1433,6 +1432,9 @@ def main(
                     niter_start,
                     msspw,
                     clean_robust,
+                    usetclean,
+                    uvrascal,
+                    clipresid
                 )
         else:
             try:
@@ -1464,6 +1466,9 @@ def main(
                     False,
                     niter_start,
                     clean_robust,
+                    usetclean,
+                    clipresid,
+                    uvrascal,
                 )
 
 
