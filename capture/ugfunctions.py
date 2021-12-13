@@ -414,6 +414,8 @@ def getgainspw(msfilename):
     gmrtfreq = 0.0
     # check if single pol data
     mypol = getpols(msfilename)
+    # Initialise to None
+    poldata = None
     #        logging.info('Your file contains %s polarization products.', mypol)
     if mypol == 1:
         #                print("This dataset contains only single polarization data.")
