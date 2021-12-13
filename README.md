@@ -11,21 +11,33 @@ CAPTURE-CASA6: This is a CASA-6 compatible version of uGMRT-pipeline. CAPTURE is
 
 The pipeline files need to be located in the same directory as the data. All the new files will be created in the same directory.
 
-To use CAPTURE-CASA6:
+## Installation
+
+Python 3.6 or 3.8 with pip is required for CASA 6. To install CAPTURE and the required dependcies either:
+
+```
+git clone https://github.com/ruta-k/CAPTURE-CASA6.git
+cd CAPTURE-CASA6
+pip install -e .
+```
+Or:
+```
+pip install git+https://github.com/ruta-k/CAPTURE-CASA6
+```
+
+## To use CAPTURE-CASA6:
 
 Open config_capture.ini in a text editor. Change and save the settings as per your requirements.
 
 Run the pipeline using:
 
-casa -c capture.py 
-
-OR at the CASA ipython prompt using,
-
-execfile("capture.py")
+```
+capture -c /path/to/your/config_capture.ini
+```
 
 The inputs in config_capture.ini are shown in Table 1.
 
-CAVEATS for CAPTURE:
+## CAVEATS for CAPTURE:
 
 1. Use CASA version 6 and above. The pipeline has been tested in CASA 6.2 and 6.2.
 2. LTA to FITS conversion: If you are starting from a "lta" file - you need to make sure that the listscan and gvfits are executable before starting to run the pipeline. You can convert these to executable files using the commands e.g.: $chmod +x listscan $chmod +x gvfits
