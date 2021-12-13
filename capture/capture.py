@@ -33,14 +33,14 @@ from casatasks import (
 
 
 def get_binaries():
-    resources = os.path.abspath(os.path.join(__file__, "..", "resources"))
+    resources = os.path.abspath(os.path.join(__file__, "..", "..", "resources"))
     gvbinpath = os.path.join(resources, "gvbin")
     listscanpath = os.path.join(gvbinpath, "listscan")
     return gvbinpath, listscanpath
 
 
 def get_vla_cals():
-    resources = os.path.abspath(os.path.join(__file__, "..", "resources"))
+    resources = os.path.abspath(os.path.join(__file__, "..", "..", "resources"))
     vla_cals = os.path.join(resources, "vla-cals.list")
     return vla_cals
 
@@ -341,7 +341,7 @@ def main(
         allscanlist = ampcalscans + pcalscans + tgtscans
         ###################################
         # get a list of antennas
-        antsused = ugf.ugfgetantlist(msfilename, int(allscanlist[0]))
+        antsused = ugf.getantlist(msfilename, int(allscanlist[0]))
         logging.info("Antennas in the file:")
         logging.info(antsused)
         ###################################
