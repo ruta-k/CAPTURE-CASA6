@@ -371,7 +371,7 @@ def mytclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean_r
                         specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1, sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
-                        smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
+                        smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001, pbmask=0.001,
                         deconvolver='mtmfs', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
                         restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
                         interactive=False)
@@ -381,7 +381,7 @@ def mytclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean_r
                         specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1,sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
-                        smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
+                        smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001, pbmask=0.001,
                         deconvolver='multiscale', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
                         restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
                         interactive=False)
@@ -405,7 +405,7 @@ def mysbtclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean
                                 specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1, sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
-                                smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
+                                smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001, pbmask=0.001,
                                 deconvolver='mtmfs', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
                                 restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
                                 interactive=False)
@@ -415,7 +415,7 @@ def mysbtclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean
                                 specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1,sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
-                                smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001,
+                                smallscalebias=0.6, threshold= mythresh, aterm =True, pblimit=-0.001, pbmask=0.001,
                                 deconvolver='multiscale', gridder='wproject', wprojplanes=mywproj, scales=[0,5,15],wbawp=False,
                                 restoration = True, savemodel='modelcolumn', cyclefactor = 0.5, parallel=False,
                                 interactive=False)
