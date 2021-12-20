@@ -19,6 +19,7 @@ import numpy as np
 from datetime import datetime
 import capture.ugfunctions as ugf
 import configparser
+import pkg_resources
 import argparse
 from casatasks import (
     importgmrt,
@@ -32,15 +33,13 @@ from casatasks import (
 
 
 def get_binaries():
-    resources = os.path.abspath(os.path.join(__file__, "..", "..", "resources"))
-    gvbinpath = os.path.join(resources, "gvbin")
-    listscanpath = os.path.join(gvbinpath, "listscan")
+    gvbinpath = pkg_resources.resource_filename("capture", "gvfits")
+    listscanpath = pkg_resources.resource_filename("capture", "listscan")
     return gvbinpath, listscanpath
 
 
 def get_vla_cals():
-    resources = os.path.abspath(os.path.join(__file__, "..", "..", "resources"))
-    vla_cals = os.path.join(resources, "vla-cals.list")
+    vla_cals = pkg_resources.resource_filename("capture", "vla-cals.list")
     return vla_cals
 
 
@@ -1472,5 +1471,8 @@ def main(
                 )
 
 
+
+
 if __name__ == "__main__":
     cli()
+
