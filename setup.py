@@ -113,7 +113,7 @@ setup(
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
-    package_data={'': ['resources/*']},
+    package_data={'capture': ['gvfits','listscan','vla-cals.list']},
     license='MIT',
     classifiers=[
         # Trove classifiers
