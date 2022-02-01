@@ -257,12 +257,12 @@ def getgainspw(msfilename):
         fmin = min(frange)
         fmax = max(frange)
         if fmin > 80E6 and fmin < 200E6:
-                logging.info("Your observations are at band-2.")
+                logging.info("Your observations are at band-2. This pipeline is not well tested for this band yet. Currently only total channel numbers of 2048 and 4096 are supported.")
                 if mynchan == 2048:
-                        mygoodchans = '0:1200~2200'
-                        flagspw = '0:1200~2200'
-                        gainspw ='0:1200~2200'
-                        gainspw2 ='0:1200~2200'
+                        mygoodchans = '0:700~800;1500~1600'
+                        flagspw = '0:500~1650;1350~1800'
+                        gainspw ='0:571~1130;1391~1750'
+                        gainspw2 ='0:571~1130;1391~1750'                        
                 elif mynchan == 4096:
                         mygoodchans = '0:1400~1600;3000~3200'
                         flagspw = '0:1000~2300;2700~3600'
