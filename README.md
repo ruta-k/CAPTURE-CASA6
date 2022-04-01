@@ -17,17 +17,17 @@ Open config_capture.ini in a text editor. Change and save the settings as per yo
 
 Run the pipeline using:
 
-casa -c capture.py 
+casa -c capture-casa6.py 
 
 OR at the CASA ipython prompt using,
 
-execfile("capture.py")
+execfile("capture-casa6.py")
 
 The inputs in config_capture.ini are shown in Table 1.
 
 CAVEATS for CAPTURE:
 
-1. Use CASA version 6 and above. The pipeline has been tested in CASA 6.2 and 6.2.
+1. Use CASA version 6 and above. The pipeline has been tested in CASA 6.2 and 6.2. 
 2. LTA to FITS conversion: If you are starting from a "lta" file - you need to make sure that the listscan and gvfits are executable before starting to run the pipeline. You can convert these to executable files using the commands e.g.: $chmod +x listscan $chmod +x gvfits
 3. For the FITS file provide the name in capital letters such as, MYSOURCE_20JULY2019.FITS or TEST.FITS etc.
 4. In case of legacy GMRT dual frequency data please convert the lta to FITS outside the pipeline by choosing one polarization at a time in the .log file. The pipeline will only work for the FITS file directly provided.
