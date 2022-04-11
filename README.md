@@ -34,3 +34,32 @@ CAVEATS for CAPTURE:
 5. Primary beam correction: The images produced by the pipeline are not corrected for the effect of the primary beam. You need to run the primary beam correction separately. The CASA 6 compatible task “ugmrtpb” should be used. The instructions to use this task are provided in the documentation for the same.
 6. The data files where the primary and secondary calibrators are not named in the standard IAU format, CAPTURE will fail. It can be used after renaming the calibrators.
 7. CAPTURE can run when the primary calibrator is used as a secondary calibrator and no phase calibrator scan exists in the file. In such a case the primary calibrator with maximum number of scans will be considered the phase calibrator. If there is a combination of a secondary calibrator and a flux calibrator used for phase calibration of the target source, then CAPTURE will recognise only the phase calibrator scans as secondary calibrator and run.  
+
+
+## To use gvfits and listscan from a docker deployment
+
+### Docker
+
+Clone this repository:
+
+```
+git clone https://github.com/ruta-k/CAPTURE-CASA6.git
+```
+
+then: 
+
+```
+cd CAPTURE-CASA6
+docker build . -t capture-casa6
+```
+
+Run ``gvfits`` and ``listscan``:
+
+```
+docker run -it  $(PWD):/tmp/ capture-casa6  listscan <filename>
+#or
+docker run -it  $(PWD):/tmp/ capture-casa6  gvfits <filename>
+```
+
+
+
