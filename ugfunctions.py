@@ -156,10 +156,10 @@ def mygaincal_ap1(myfile,mycal,myref,myflagspw,myuvracal,calsuffix):
         return gtable
 
 
-def mygaincal_ap2(myfile,mycal,myref,myflagspw,myuvracal,calsuffix):
+def mygaincal_ap2(myfile,mycal,myref,myflagspw,myuvracal,calsuffix,appflag):
         default(gaincal)
         gtable = [str(myfile)+'.K1'+calsuffix, str(myfile)+'.B1'+calsuffix ]
-        gaincal(vis=myfile, caltable=str(myfile)+'.AP.G'+calsuffix, spw =myflagspw,uvrange=myuvracal,append=True,
+        gaincal(vis=myfile, caltable=str(myfile)+'.AP.G'+calsuffix, spw =myflagspw,uvrange=myuvracal,append=appflag,
                 field=mycal,solint = '120s',refant = myref, minsnr = 2.0, solmode ='L1R', gaintype = 'G', calmode = 'ap',
                 gaintable = gtable, interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True )
         return gtable
