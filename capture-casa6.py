@@ -388,7 +388,8 @@ if doinitcal == True:
 	#if os.path.isdir(str(msfilename)+'.K1'+mycalsuffix) == True:
 	#	os.system('rm -rf '+str(msfilename)+'.K1'+mycalsuffix)
 	if os.path.isdir(gntable) == True:
-		os.system('rm -rf '+gntable)
+	        os.system('rm -rf '+gntable)
+	default(gaincal)
 	gaincal(vis=msfilename, caltable=gntable, spw =flagspw, field=myampcals[0], 
 		solint='60s', refant=ref_ant, solnorm= True, gaintype='K', gaintable=[], parang=True)
 	kcorrfield =myampcals[0]
@@ -399,7 +400,7 @@ if doinitcal == True:
 	if os.path.isdir(gntable) == True:
 		os.system('rm -rf '+gntable)
 	default(gaincal)
-	gaincal(vis=msfilename, caltable=gntable, append=True, field=str(','.join(mybpcals)), 
+	gaincal(vis=msfilename, caltable=gntable, append=False, field=str(','.join(mybpcals)), 
 		spw =flagspw, solint = 'int', refant = ref_ant, minsnr = 2.0, solmode = 'L1R', gaintype = 'G', calmode = 'ap', 
 		gaintable = [str(msfilename)+'.K1'+mycalsuffix], interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True)
 	if os.path.isdir(str(msfilename)+'.B1'+mycalsuffix) == True:
@@ -414,7 +415,15 @@ if doinitcal == True:
 	if os.path.isdir(str(msfilename)+'.AP.G'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.AP.G'+mycalsuffix)
 	for i in range(0,len(mycals)):
-		mygaincal_ap2(msfilename,mycals[i],ref_ant,gainspw,uvracal,mycalsuffix)
+                if i == 0:
+                        appflag = False                   
+                else:
+                    if os.path.isdir(str(msfilename)+'.AP.G'+mycalsuffix) == True:
+                            appflag = True
+                    else:
+                            logging.info("Check gaincal table !!!! Was not created in the first step.")
+                            appflag = False
+                mygaincal_ap2(msfilename,mycals[i],ref_ant,gainspw,uvracal,mycalsuffix,appflag)
 # Get flux scale
 	if os.path.isdir(str(msfilename)+'.fluxscale'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.fluxscale'+mycalsuffix)
@@ -544,8 +553,8 @@ if redocal == True:
 	#	os.system('rm -rf '+str(msfilename)+'.K1'+mycalsuffix)
 	if os.path.isdir(gntable) == True:
 		os.system('rm -rf '+gntable)
-	gaincal(vis=msfilename, caltable=gntable, spw =flagspw, field=myampcals[0], 
-		solint='60s', refant=ref_ant,        solnorm= True, gaintype='K', gaintable=[], parang=True)
+	default(gaincal)
+	gaincal(vis=msfilename, caltable=gntable, spw =flagspw, field=myampcals[0],solint='60s', refant=ref_ant,solnorm= True, gaintype='K', gaintable=[], parang=True)
 	kcorrfield =myampcals[0]
 #        print 'wrote table',str(msfilename)+'.K1'+mycalsuffix
 # an initial bandpass
@@ -555,9 +564,7 @@ if redocal == True:
 	if os.path.isdir(gntable) == True:
 		os.system('rm -rf '+gntable)
 	default(gaincal)
-	gaincal(vis=msfilename, caltable=gntable, append=True, field=str(','.join(mybpcals)), 
-		spw =flagspw, solint = 'int', refant = ref_ant, minsnr = 2.0, solmode ='L1R', gaintype = 'G', calmode = 'ap', gaintable = [str(msfilename)+'.K1'],
-		interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True)
+	gaincal(vis=msfilename, caltable=gntable, append=False, field=str(','.join(mybpcals)),spw =flagspw, solint = 'int', refant = ref_ant, minsnr = 2.0, solmode ='L1R', gaintype = 'G', calmode = 'ap', gaintable = [str(msfilename)+'.K1'],interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True)
 	if os.path.isdir(str(msfilename)+'.B1'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.B1'+mycalsuffix)
 	bptable=str(msfilename)+'.B1'+mycalsuffix
@@ -570,7 +577,15 @@ if redocal == True:
 	if os.path.isdir(str(msfilename)+'.AP.G'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.AP.G'+mycalsuffix)
 	for i in range(0,len(mycals)):
-		mygaincal_ap2(msfilename,mycals[i],ref_ant,gainspw,uvracal,mycalsuffix)
+		if i == 0:
+			appflag = False
+		else:
+			if os.path.isdir(str(msfilename)+'.AP.G'+mycalsuffix) == True:
+				appflag = True
+			else:
+				logging.info("Check gaincal table !!!! Was not created in the first step.")
+				appflag = False
+		mygaincal_ap2(msfilename,mycals[i],ref_ant,gainspw,uvracal,mycalsuffix,appflag)
 # Get flux scale
 	if os.path.isdir(str(msfilename)+'.fluxscale'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.fluxscale'+mycalsuffix)
