@@ -564,7 +564,7 @@ if redocal == True:
 	if os.path.isdir(gntable) == True:
 		os.system('rm -rf '+gntable)
 	default(gaincal)
-	gaincal(vis=msfilename, caltable=gntable, append=False, field=str(','.join(mybpcals)),spw =flagspw, solint = 'int', refant = ref_ant, minsnr = 2.0, solmode ='L1R', gaintype = 'G', calmode = 'ap', gaintable = [str(msfilename)+'.K1'],interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True)
+	gaincal(vis=msfilename, caltable=gntable, append=False, field=str(','.join(mybpcals)),spw =flagspw, solint = 'int', refant = ref_ant, minsnr = 2.0, solmode ='L1R', gaintype = 'G', calmode = 'ap', gaintable = [str(msfilename)+'.K1'+mycalsuffix],interp = ['nearest,nearestflag', 'nearest,nearestflag' ], parang = True)
 	if os.path.isdir(str(msfilename)+'.B1'+mycalsuffix) == True:
 		os.system('rm -rf '+str(msfilename)+'.B1'+mycalsuffix)
 	bptable=str(msfilename)+'.B1'+mycalsuffix
