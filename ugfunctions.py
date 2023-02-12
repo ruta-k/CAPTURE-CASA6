@@ -367,7 +367,7 @@ def mytclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean_r
         default(tclean)
         if mynterms1 > 1:
                 tclean(vis=myfile,
-                        imagename=myoutimg, selectdata= True, field='0', spw='0', imsize=imsize, cell=cell, robust=clean_robust, weighting='briggs', 
+                        imagename=myoutimg, selectdata= True, field='0', spw='', imsize=imsize, cell=cell, robust=clean_robust, weighting='briggs', 
                         specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1, sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
@@ -377,7 +377,7 @@ def mytclean(myfile,myniter,mythresh,srno,cell,imsize, mynterms1,mywproj,clean_r
                         interactive=False)
         else:
                 tclean(vis=myfile,
-                        imagename=myoutimg, selectdata= True, field='0', spw='0', imsize=imsize, cell=cell, robust=clean_robust, weighting='briggs', 
+                        imagename=myoutimg, selectdata= True, field='0', spw='', imsize=imsize, cell=cell, robust=clean_robust, weighting='briggs', 
                         specmode='mfs',        nterms=mynterms1, niter=myniter, usemask='auto-multithresh',minbeamfrac=0.1,sidelobethreshold = 2.0,
 #                        minpsffraction=0.05,
 #                        maxpsffraction=0.8,
